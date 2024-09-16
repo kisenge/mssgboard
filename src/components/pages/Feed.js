@@ -107,7 +107,7 @@ const Feed = () => {
 
    function createMessage(username,message) {
 
-     fetch('http://localhost:3001/messages', {
+     fetch('postgresql://mssgBoard_owner:8I3BEnJrjohq@ep-dawn-art-a5q3uj5a.us-east-2.aws.neon.tech/mssgBoard?sslmode=require/messages', {
        method: 'POST',
        headers: {
          'Content-Type': 'application/json',
