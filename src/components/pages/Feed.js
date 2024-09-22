@@ -18,6 +18,7 @@ import Avatar from 'boring-avatars';
 import Drawer from '@mui/material/Drawer';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import supabase  from '../../supabase-backend/supabaseClient';
 
 require('dotenv').config();
 
@@ -81,7 +82,8 @@ const Feed = () => {
 
 
   const navigate = useNavigate()
-  const [messages, setMessages] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [error, setError] = useState(null);
 
 
   const [isOpen, setIsOpen] = useState(false)
@@ -89,7 +91,50 @@ const Feed = () => {
        setIsOpen((isOpen) => !isOpen)
    }
 
+   
+   const fetchMessages = async () => {
+   
+    try {
+      const { data, error } = await supabase.from('messages').select('*');
+      if (error) {
+        setError('Error fetching messages');
+        console.error('Error fetching messages:', error);
+      } else {
+        setMessages(data);
+        console.log('Fetched messages:', data);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setError('Unexpected error occurred');
+    } 
+  };
 
+
+  const createMessage = async (username,message) => {
+   
+    try {
+     
+      
+      const { data, error } = await supabase
+      .from('messages')
+      .insert([
+        { username: username, message: message },
+      ])
+      .select()
+        
+
+      if (error) {
+        setError('Error creating messages');
+        console.error('Error creating messages:', error);
+      } else {
+        //setMessages(data);
+        console.log('Created messages:', data);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setError('Unexpected error occurred');
+    } 
+  };
 
 
 
@@ -105,7 +150,7 @@ const Feed = () => {
    }
 
 
-   function createMessage(username,message) {
+   /*function createMessage(username,message) {
 
      fetch('postgresql://mssgBoard_owner:8I3BEnJrjohq@ep-dawn-art-a5q3uj5a.us-east-2.aws.neon.tech/mssgBoard?sslmode=require/messages', {
        method: 'POST',
@@ -121,7 +166,12 @@ const Feed = () => {
          alert(data);
          getMessage();
        });
-   }
+
+       
+   }*/
+
+
+        
 
 
 
@@ -160,9 +210,9 @@ const Feed = () => {
        });
    }
 
-   /*useEffect(() => {
-     getMessage();
-   }, []);*/
+   useEffect(() => {
+     fetchMessages();
+   }, []);
 
   return (
     /* <VStack style={style.pageContainer}>
@@ -240,7 +290,7 @@ const Feed = () => {
         <br />
         <button onClick={createMessage}>Add merchant</button>
         <br />
-        <button onClick={deleteMessage}>Delete merchant</button>
+        <button onClick={fetchMessages}>Fetch Messages</button>
         <br />
         <button onClick={updateMessage}>Update merchant</button>
       </div>

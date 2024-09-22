@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-
+//import { TextInput} from 'react-native';
 
 function Popup(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,13 +12,13 @@ function Popup(props) {
     setIsOpen(!isOpen);
   };
 
-  const handleSetMessage = (inputText) => {
-    setMessage(inputText); // Update the state variable with the new text
+  const handleSetMessage = (event) => {
+    setMessage(event.target.value); // Update the state variable with the new text
   };
 
   return (
     <div>
-      <button onClick={togglePopup}>Open Popup</button>
+      <button onClick={togglePopup}>Add Message</button>
       {isOpen && (
         <div className="popup">
           {/* Popup content */}
@@ -27,7 +27,7 @@ function Popup(props) {
           <TextField
           fullWidth
           multiline
-          onChangeText={handleSetMessage} // Call handleInputChange whenever text changes
+          onChange={handleSetMessage} // Call handleInputChange whenever text changes
           />
           
           <button onClick={() => props.createMessage(props.usernameProp,message)}>Post</button>
