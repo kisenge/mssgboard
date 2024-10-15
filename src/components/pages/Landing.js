@@ -100,25 +100,15 @@ const Landing = () => {
 
 
 
-  //initialize to emtpy
+  //set username to default name if one isnt set
   const [username, setUsername] = useState('anonymous_One');
-
-
-
 
   const handleSetUsername = (inputText) => {
     setUsername(inputText); // Update the state variable with the new text
   };
 
 
-  const handleClick = () => {
-
-    const data2send = { name: username, color: colors };
-    navigate('/feed',{state:data2send});
-
-  };
-
-
+  //ge
   function randomHexColors() {
     const letters = '0123456789ABCDEF';
     let color='#';
@@ -133,8 +123,19 @@ const Landing = () => {
     return colorArray;
   }
 
-  const colors= randomHexColors()
+  const colours= randomHexColors()
 
+
+
+  const handleClick = () => {
+
+    const data2send = { name: username, colours: colours };
+    navigate('/feed',{state:data2send});
+
+  };
+
+
+  
 
 
   return (

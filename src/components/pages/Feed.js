@@ -19,6 +19,7 @@ import Drawer from '@mui/material/Drawer';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import supabase  from '../../supabase-backend/supabaseClient';
+import GridComponent from '../atoms/GridComponent';
 
 require('dotenv').config();
 
@@ -78,7 +79,7 @@ pop: {
 const Feed = () => {
 
   const location= useLocation();
-  const data2= location.state;
+  const data2receive= location.state;
 
 
   const navigate = useNavigate()
@@ -110,7 +111,7 @@ const Feed = () => {
   };
 
 
-  const createMessage = async (username,message) => {
+  const createMessage = async (username,message,colours) => {
    
     try {
      
@@ -118,7 +119,7 @@ const Feed = () => {
       const { data, error } = await supabase
       .from('messages')
       .insert([
-        { username: username, message: message },
+        { username: username, message: message, colours: data2receive.colours },
       ])
       .select()
         
@@ -236,27 +237,30 @@ const Feed = () => {
 
       <img style={style.banner} src={logo} />
 
-      <p>{data2.name}</p>
+      <p>{data2receive.name}</p>
 
       <Avatar
         size={100}
         name=""
         variant="marble"
-        colors={data2.color}
+        colors={data2receive.colours}
       />
-      <p>{data2.color}</p>
+      <p>{data2receive.colours}</p>
+
+
+      <GridComponent/>
 
 
 
 
         <div style={style.pop}>
-        <Popup usernameProp={data2.name} createMessage={createMessage}/>
+        <Popup username={data2receive.name} colours={data2receive.colours} createMessageFunction={createMessage}/>
         </div>
 
 
 
 
-
+         
 
         <Stack
         direction="row"

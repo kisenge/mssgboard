@@ -27,10 +27,11 @@ function Popup(props) {
           <TextField
           fullWidth
           multiline
+          inputProps={{ maxLength: 280 }}
           onChange={handleSetMessage} // Call handleInputChange whenever text changes
           />
           
-          <button onClick={() => props.createMessage(props.usernameProp,message)}>Post</button>
+          <button onClick={() => props.createMessageFunction(props.username,message,props.colours)}>Post</button>
         </div>
       )}
     </div>
