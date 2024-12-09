@@ -1,25 +1,19 @@
 import React from 'react';
-//import PageTitle from '../atoms/PageTitle';
 import Popup from '../atoms/Popup';
-//import { strings } from '../../constants/strings';
 import {Text, StyleSheet} from 'react-native';
-//import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-//import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
 import logo from '../graphics/logo.png';
-//import Image from "material-ui-image";
 import {useState, useEffect} from 'react';
 import dotenv from 'dotenv';
 import { useLocation } from "react-router-dom";
 import Avatar from 'boring-avatars';
-import Drawer from '@mui/material/Drawer';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
+
 import supabase  from '../../supabase-backend/supabaseClient';
 import GridComponent from '../atoms/GridComponent';
+import Footer from '../atoms/Footer';
 
 require('dotenv').config();
 
@@ -50,8 +44,8 @@ const style = {
     //maxWidth: '100%',
     //maxHeight: '10%',
     //height: '100px'
-    width: '750px',
-    height: '337px',
+    width: '1000px',
+    height: '300px',
     objectFit: 'scale-down'
   },
   roundedEdge: {
@@ -64,15 +58,51 @@ const style = {
   height: '100vh' /* Set the height of the container */
 },
 pop: {
-  margin:"0 auto",
+  //margin:"0 auto",
    display: 'flex',
-  maxWidth: '66%', // Set the maximum width of the div
+  //maxWidth: '66%', // Set the maximum width of the div
 
   justifyContent:"center",
   alignItems:"center",
-   height: '100vh'
+  height: '10vh',
 
 },
+logoContainer: {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%', // Full width of the container
+  height: '50vh', // Full height of the viewport
+  overflow: 'hidden', // No overflow to prevent extra whitespace
+  margin:'0'
+},
+logo: {
+  width: '100%', // Let the logo take up the full width of the container
+  height: 'auto', // Maintain the aspect ratio
+  maxWidth: '500px', // Prevent the logo from getting larger than 500px
+  objectFit: 'contain', // Ensure the logo is contained without distortion
+  margin:'0'
+},
+welcomeBarContainer: {
+  display: 'flex',  // Enable flexbox
+  justifyContent: 'flex-end', // Optional: adjust spacing
+  alignItems: 'center', // Center align vertically
+  backgroundColor: 'yellow',
+  height: '80px'
+  
+},
+welcomeBarBox1: {
+  width: '100px',
+  height: '70px',
+  margin: '2px',
+  //alignItems: 'center'
+},
+welcomeBarBox2: {
+  width: '300px',
+  height: '70px',
+  margin: '2px',
+ // alignItems: 'center'
+}
 
 };
 
@@ -119,7 +149,7 @@ const Feed = () => {
       const { data, error } = await supabase
       .from('messages')
       .insert([
-        { username: username, message: message, colours: data2receive.colours },
+        { username: username, message: message, colours: colours },
       ])
       .select()
         
@@ -139,90 +169,17 @@ const Feed = () => {
 
 
 
+  
 
-  function getMessage() {
-     fetch('http://localhost:3001')
-       .then(response => {
-         return response.text();
-       })
-       .then(data => {
-         setMessages(data);
-       });
-   }
-
-
-   /*function createMessage(username,message) {
-
-     fetch('postgresql://mssgBoard_owner:8I3BEnJrjohq@ep-dawn-art-a5q3uj5a.us-east-2.aws.neon.tech/mssgBoard?sslmode=require/messages', {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify({username, message}),
-     })
-       .then(response => {
-         return response.text();
-       })
-       .then(data => {
-         alert(data);
-         getMessage();
-       });
-
-       
-   }*/
-
-
-        
-
-
-
-   function deleteMessage() {
-     let id = prompt('Enter merchant id');
-     fetch(`http://localhost:3001/messages/${id}`, {
-       method: 'DELETE',
-     })
-       .then(response => {
-         return response.text();
-       })
-       .then(data => {
-         alert(data);
-         getMessage();
-       });
-   }
-
-
-   function updateMessage() {
-     let id = prompt('Enter message id');
-     let name = prompt('Enter new message name');
-     let message = prompt('Enter new message email');
-     fetch(`http://localhost:3001/messages/${id}`, {
-       method: 'PUT',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify({name, message}),
-     })
-       .then(response => {
-         return response.text();
-       })
-       .then(data => {
-         alert(data);
-         getMessage();
-       });
-   }
-
+   
    useEffect(() => {
      fetchMessages();
    }, []);
 
+
+
   return (
-    /* <VStack style={style.pageContainer}>
-      <PageTitle titleStyle={style.loginTitle} title={strings.cityQuery} />
-      <StartApplication />
-    </VStack> */
-
-
-
+  
     <Stack
       direction="column"
       divider={<Divider orientation="vertical" flexItem />}
@@ -231,73 +188,38 @@ const Feed = () => {
 
 
 
-      <Text style={{color:'blue'}}>
-        Home
-      </Text>
+      <div style={style.logoContainer}>
+        <img style={style.logo} src={logo} />
+      </div>
 
-      <img style={style.banner} src={logo} />
+      <div style={style.welcomeBarContainer}>
+        <div style={style.welcomeBarBox2}>
+        <h3>We are glad you are here, {data2receive.name}</h3>
+        </div>
 
-      <p>{data2receive.name}</p>
+        <div style={style.welcomeBarBox1}>
+        <Avatar
+          size={60}
+          name=""
+          variant="marble"
+          colors={data2receive.colours}
+        />
+        
+        </div>
+      </div>
 
-      <Avatar
-        size={100}
-        name=""
-        variant="marble"
-        colors={data2receive.colours}
-      />
-      <p>{data2receive.colours}</p>
+      
+
+
+      <div style={style.pop}>
+      <Popup username={data2receive.name} colours={data2receive.colours} createMessageFunction={createMessage}/>
+      </div>
+
 
 
       <GridComponent/>
 
-
-
-
-        <div style={style.pop}>
-        <Popup username={data2receive.name} colours={data2receive.colours} createMessageFunction={createMessage}/>
-        </div>
-
-
-
-
-         
-
-        <Stack
-        direction="row"
-        divider={<Divider orientation="vertical"  />}
-        spacing={1}
-        //style= {style.centre}
-        >
-
-
-
-
-
-          <Button
-          style= {style.roundedEdge}
-          variant="outlined"
-           onClick={() => {
-              navigate('/residents');
-            }}
-          >
-          Manage Residents</Button>
-
-
-
-
-
-
-      </Stack>
-
-   <div>
-
-        <br />
-        <button onClick={createMessage}>Add merchant</button>
-        <br />
-        <button onClick={fetchMessages}>Fetch Messages</button>
-        <br />
-        <button onClick={updateMessage}>Update merchant</button>
-      </div>
+      <Footer/>
 
 
 

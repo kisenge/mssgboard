@@ -9,8 +9,10 @@ const style = {
     flexContainer:{
         display: "flex",
         flexWrap: "wrap",
-        gap: "10px",  // Gap between items
-        padding: "20px"
+        gap: "3px",  // Gap between items
+        padding: "20px",
+        justifyContent: "center",  // Center children horizontally
+        flexDirection: "row"
     },
     flexItem: {
         backgroundColor: "#f0f0f0",
@@ -49,6 +51,7 @@ const GridComponent = () => {
           setError('Error fetching messages');
           console.error('Error fetching messages:', error);
         } else {
+          data.reverse()
           setMessages(data);
           console.log('Fetched messages:', data);
         }
