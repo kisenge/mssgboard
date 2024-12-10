@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
+//import { TextInput} from 'react-native';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import {useNavigate} from 'react-router-dom';
 
 
 function Popup(props) {
@@ -12,13 +16,18 @@ function Popup(props) {
     setIsOpen(!isOpen);
   };
 
-  const handleSetMessage = (inputText) => {
-    setMessage(inputText); // Update the state variable with the new text
+  const handleSetMessage = (event) => {
+    setMessage(event.target.value); // Update the state variable with the new text
   };
+
+  const navigate = useNavigate()
 
   return (
     <div>
-      <button onClick={togglePopup}>Open Popup</button>
+      <IconButton color="primary"  onClick={togglePopup} size={'large'}>
+        <AddIcon size={'large'}/>
+      </IconButton>
+      
       {isOpen && (
         <div className="popup">
           {/* Popup content */}
@@ -27,10 +36,15 @@ function Popup(props) {
           <TextField
           fullWidth
           multiline
-          onChangeText={handleSetMessage} // Call handleInputChange whenever text changes
+          inputProps={{ maxLength: 195 }}
+          onChange={handleSetMessage} // Call handleInputChange whenever text changes
           />
           
-          <button onClick={() => props.createMessage(props.usernameProp,message)}>Post</button>
+          <button onClick={() => {
+            props.createMessageFunction(props.username,message,props.colours);
+            navigate(0);
+          
+          }}>Post</button>
         </div>
       )}
     </div>

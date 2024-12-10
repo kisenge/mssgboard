@@ -1,6 +1,4 @@
 import React from 'react';
-//import PageTitle from '../atoms/PageTitle';
-//import { strings } from '../../constants/strings';
 import {Text, StyleSheet, TextInput} from 'react-native';
 //import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -9,7 +7,6 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
 import logo from '../graphics/logo.png';
-//import Image from "material-ui-image";
 import {useState, useEffect} from 'react';
 import dotenv from 'dotenv';
 import Box from '@mui/material/Box';
@@ -75,9 +72,13 @@ const style = {
   textBox:{
     fontSize: '40px',
     color: '#ffffff',
-    border: "yellow",
+    borderWidth: '10', // Outline width
+    borderColor: 'white', // Outline color
+    borderRadius: '5', //rounded corners
+    //border: "yellow",
     caretColor:'yellow',
-    flex:'1'
+    flex:'1',
+    
   },
   title:{
     color: '#ffffff',
@@ -90,6 +91,15 @@ const style = {
     position: 'absolute', /* Position the element absolutely */
     bottom: '0', /* Position at the bottom */
     left: '0'
+  },
+  outline:{
+    fontSize: '40px',
+    color: '#ffffff',
+    borderWidth: '10', // Outline width
+    borderColor: 'white', // Outline color
+    borderRadius: '5', //rounded corners
+    
+    
   }
 
 
@@ -100,25 +110,15 @@ const Landing = () => {
 
 
 
-  //initialize to emtpy
+  //set username to default name if one isnt set
   const [username, setUsername] = useState('anonymous_One');
-
-
-
 
   const handleSetUsername = (inputText) => {
     setUsername(inputText); // Update the state variable with the new text
   };
 
 
-  const handleClick = () => {
-
-    const data2send = { name: username, color: colors };
-    navigate('/feed',{state:data2send});
-
-  };
-
-
+  //ge
   function randomHexColors() {
     const letters = '0123456789ABCDEF';
     let color='#';
@@ -133,8 +133,19 @@ const Landing = () => {
     return colorArray;
   }
 
-  const colors= randomHexColors()
+  const colours= randomHexColors()
 
+
+
+  const handleClick = () => {
+
+    const data2send = { name: username, colours: colours };
+    navigate('/feed',{state:data2send});
+
+  };
+
+
+  
 
 
   return (
@@ -158,7 +169,7 @@ const Landing = () => {
       size={200}
       name=""
       variant="marble"
-      colors={colors}
+      colors={colours}
     />
 
 
@@ -185,12 +196,12 @@ const Landing = () => {
       <TextInput
       maxLength="18"
       style={style.textBox}
-      selectionColor='red'
       onChangeText={handleSetUsername} // Call handleInputChange whenever text changes
-
+      autoFocus={true}
       >
 
       </TextInput>
+    
 
 
 

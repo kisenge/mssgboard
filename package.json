@@ -6,14 +6,16 @@
     "@aws-amplify/cli": "^12.12.6",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^6.1.6",
     "@mui/material": "^5.15.15",
     "@rneui/base": "^4.0.0-rc.8",
     "@rneui/themed": "^4.0.0-rc.8",
+    "@supabase/supabase-js": "^2.45.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "amplify": "^0.0.11",
-    "aws-amplify": "^6.5.2",
+    "aws-amplify": "^6.10.2",
     "boring-avatars": "^1.10.2",
     "browserify-zlib": "^0.2.0",
     "dotenv": "^16.4.5",
@@ -58,6 +60,14 @@
     ]
   },
   "devDependencies": {
-    "react-native-dotenv": "^3.4.11"
+    "@aws-amplify/backend": "^1.8.0",
+    "@aws-amplify/backend-cli": "^1.4.2",
+    "aws-cdk": "^2.171.1",
+    "aws-cdk-lib": "^2.171.1",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.24.0",
+    "react-native-dotenv": "^3.4.11",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }
