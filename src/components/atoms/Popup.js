@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 //import { TextInput} from 'react-native';
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
 import {useNavigate} from 'react-router-dom';
+import Button from '@mui/material/Button';
+
+
+const style = {
+  
+  button = {
+    padding: '10px 20px',
+    backgroundColor: 'white',  // Green
+    border: 'none',
+    color: 'blue',
+    textAlign: 'center',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    margin: '4px 2px',
+    cursor: 'pointer',
+    borderRadius: '8px'
+  },
+
+};
 
 
 function Popup(props) {
+
   const [isOpen, setIsOpen] = useState(false);
 
   //initialize to emtpy
@@ -24,9 +43,11 @@ function Popup(props) {
 
   return (
     <div>
-      <IconButton color="primary"  onClick={togglePopup} size={'large'}>
-        <AddIcon size={'large'}/>
-      </IconButton>
+      
+
+      <Button style={style.button} onClick={togglePopup}>
+      {Add Message}
+      </Button>
       
       {isOpen && (
         <div className="popup">
