@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 const style = {
   
-  button = {
+  button: {
     padding: '10px 20px',
     backgroundColor: 'white',  // Green
     border: 'none',
@@ -18,7 +18,7 @@ const style = {
     fontSize: '16px',
     margin: '4px 2px',
     cursor: 'pointer',
-    borderRadius: '8px'
+    borderRadius: '8px',
   },
 
 };
@@ -46,14 +46,18 @@ function Popup(props) {
       
 
       <Button style={style.button} onClick={togglePopup}>
-      {Add Message}
+      Add Message
       </Button>
       
       {isOpen && (
         <div className="popup">
           {/* Popup content */}
           <h1>What's on your mind?</h1>
-          <p>I'm sorry I can't come to the phone right now. Please leave a message after the tone.</p>
+          <p>I'm sorry I can't come to the phone right now. Please leave a message after the tone.
+            <br />
+            <br />
+            (You may need to try posting again, if you don't see your message after pressing post. Thanks for your patience.)
+          </p>
           <TextField
           fullWidth
           multiline
