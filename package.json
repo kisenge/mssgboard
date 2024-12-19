@@ -2,6 +2,7 @@
   "name": "mssgboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://main.dmw8bqggrw9e3.amplifyapp.com",
   "dependencies": {
     "@aws-amplify/cli": "^12.12.6",
     "@emotion/react": "^11.11.4",
